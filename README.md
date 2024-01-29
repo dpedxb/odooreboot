@@ -51,11 +51,19 @@ location /502.html {
 7. Change the FCGI Wrap ```User``` and ```Group``` to ```root``` by editing file ``` /lib/systemd/system/fcgiwrap.service ```. This is required to restart the service. Would you like me to explain alternative solutions?
 Do a ```systemctl daemon-reload``` to enable the service again.
 
-8. Restart NGINX and FCGI Wrap service and test it by stopping the odoo service manually.
+8. Restart NGINX and FCGI Wrap service.
 ```
 systemctl restart fcgiwrap
 systemctl restart nginx
 ```
+9.  Test it by stopping the odoo service manually.
+```
+systemctl stop odoo
+```
+10. The bash script will create a directory with current timestamp as the name under /var/log/odoo and put all the generated logs under it.
+
+
+
 
 ### Remember: When debugging Odoo, manually stop NGINX to avoid automatic restarts triggered by the service ###
    
