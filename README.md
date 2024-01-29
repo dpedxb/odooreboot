@@ -1,6 +1,6 @@
 # Odoo Service Restarter
 
-**Note: Don't rely solely on this tool to tackle 502 errors! It can provide temporary relief, but a lasting solution lies in fixing the underlying code issues **
+### Note: Don't rely solely on this tool to tackle 502 errors! It can provide temporary relief, but a lasting solution lies in fixing the underlying code issues. ###
 
 This setup is designed to automatically restart the Odoo service whenever it dies or fails to respond with a 502 HTTP Error. The solution involves using NGINX, FCGI Wrap, and a bash script to achieve this. When a 502 error occurs, the script will collect current details of CPU, memory, and IO usage, then proceed to restart the Odoo and PostgreSQL services. You have the flexibility to choose which details to collect before and after restarting the services. In some cases, you may only need to restart the Odoo service without affecting PostgreSQL. Modify the script according to your specific requirements.
 
@@ -18,18 +18,46 @@ Here's what happens:
 ## Installation.
 
 1. Install NGINX.
-   'apt install nginx'
+   
+   ```apt install nginx```
 
-2. Install FCGI Wrap
-   'apt install fcgiwrap'
+3. Install FCGI Wrap
+   
+   ```apt install fcgiwrap```
 
-3. Modify your your current NGINX configutation file and add the 502 redirect section from odoo-nginx.conf
+5. Modify your your current NGINX configutation file and add the 502 redirect section from odoo-nginx.conf
+```
+#=========== Start 502 redirect =============#
+error_page 502 /502.html;
+location /502.html {
 
-4. Copy the bash script odoo_check.sh to "/opt/odoo/scripts"
+  gzip off;
+  index index.html;
+  root  /opt/odoo/scripts;
+  internal;
+  # Fastcgi socket
+  fastcgi_pass  unix:/var/run/fcgiwrap.socket;
 
-5. Restart NGINX and FCGI Wrap service and test it by stopping the odoo service manually.
+  # Fastcgi parameters, include the standard ones
+  include /etc/nginx/fastcgi_params;
+  fastcgi_param SCRIPT_FILENAME /opt/odoo/scripts/odoo_check.sh;
 
-** Remember: When debugging Odoo, manually stop NGINX to avoid automatic restarts triggered by the service **
+}
+#============ End 502 redirect =============#
+```
+
+6. Copy the bash script odoo_check.sh to "/opt/odoo/scripts" or anyother directory and change the NGINX configuraiton according to that. 
+
+7. Change the FCGI Wrap ```User``` and ```Group``` to ```root``` by editing file ``` /lib/systemd/system/fcgiwrap.service ```. This is required to restart the service. Would you like me to explain alternative solutions?
+Do a ```systemctl daemon-reload``` to enable the service again.
+
+8. Restart NGINX and FCGI Wrap service and test it by stopping the odoo service manually.
+```
+systemctl restart fcgiwrap
+systemctl restart nginx
+```
+
+### Remember: When debugging Odoo, manually stop NGINX to avoid automatic restarts triggered by the service ###
    
 
 
