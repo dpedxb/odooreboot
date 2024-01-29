@@ -52,7 +52,7 @@ fi
         systemctl stop odoo >> $LOG_FILE
         systemctl restart postgresql >> $LOG_FILE
         systemctl start odoo >> $LOG_FILE
-        sleep 3
+        sleep 2
         echo "" >> $LOG_FILE
         echo "" >> $LOG_FILE
         echo "=========================== After Service Restart ============================" >> $LOG_FILE
