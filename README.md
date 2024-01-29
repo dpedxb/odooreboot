@@ -10,10 +10,10 @@ This automatic setup monitors the health of your Odoo service and takes action i
 
 Here's what happens:
 
-Error Detection: NGINX, with the help of FCGI Wrap, identifies a 502 error from Odoo.
-Script Activation: The configured bash script automatically initiates upon recognizing the error.
-System Diagnostics (Optional): You can choose to customize the script to gather pre-restart information like CPU, memory, and I/O usage. This data can provide valuable insights into the cause of the issue.
-Service Restart: The script automatically restarts the Odoo service and potentially PostgreSQL as well (depending on your customization). This prompt action helps minimize downtime and restore functionality.
+- Error Detection: NGINX, with the help of FCGI Wrap, identifies a 502 error from Odoo.
+- Script Activation: The configured bash script automatically initiates upon recognizing the error.
+- System Diagnostics (Optional): You can choose to customize the script to gather pre-restart information like CPU, memory, and I/O usage. This data can provide valuable insights into the cause of the issue.
+- Service Restart: The script automatically restarts the Odoo service and potentially PostgreSQL as well (depending on your customization). This prompt action helps minimize downtime and restore functionality.
 
 ## Installation.
 
