@@ -63,9 +63,11 @@ systemctl restart nginx
 systemctl stop odoo
 ```
 8. The bash script will create a directory with current timestamp as the name under ```/var/log/odoo``` and put all the generated logs under it.
-9. Please make sure you have added ```longpolling_port = 8079 ``` under odoo configuration(```/etc/odoo.conf```). Otherwise longpolling will get 502 error and odoo will be get restarted unnecessarily.
 
-
+9. Please make sure you have added ```longpolling_port = 8072 ``` under odoo configuration(```/etc/odoo.conf```). Otherwise longpolling will get 502 error and odoo will be get restarted unnecessarily.
+Run ```systemctl status odoo``` make sure you have the gevent.
+```/opt/odoo/odoo-bin gevent -c /etc/odoo.conf```
+10. Open the odoo URL and use browser inspect element and make sure you don't have any 502 errors in console.
 
 
 ### Remember: When debugging Odoo, manually stop NGINX to avoid automatic restarts triggered by the service ###
