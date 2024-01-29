@@ -21,11 +21,11 @@ Here's what happens:
    
    ```apt install nginx```
 
-3. Install FCGI Wrap
+2. Install FCGI Wrap
    
    ```apt install fcgiwrap```
 
-5. Modify your your current NGINX configutation file and add the 502 redirect section from odoo-nginx.conf
+3. Modify your your current NGINX configutation file and add the 502 redirect section from odoo-nginx.conf
 ```
 #=========== Start 502 redirect =============#
 error_page 502 /502.html;
@@ -46,21 +46,23 @@ location /502.html {
 #============ End 502 redirect =============#
 ```
 
-6. Copy the bash script odoo_check.sh to "/opt/odoo/scripts" or anyother directory and change the NGINX configuraiton according to that. 
-
-7. Change the FCGI Wrap ```User``` and ```Group``` to ```root``` by editing file ``` /lib/systemd/system/fcgiwrap.service ```. This is required to restart the service. Would you like me to explain alternative solutions?
+4. Copy the bash script odoo_check.sh to "/opt/odoo/scripts" or anyother directory and change the NGINX configuraiton according to that. Also add execute permission to it.
+```
+chmod +x -v odoo_check.sh
+```
+5. Change the FCGI Wrap ```User``` and ```Group``` to ```root``` by editing file ``` /lib/systemd/system/fcgiwrap.service ```. This is required to restart the service. Would you like me to explain alternative solutions?
 Do a ```systemctl daemon-reload``` to enable the service again.
 
-8. Restart NGINX and FCGI Wrap service.
+6. Restart NGINX and FCGI Wrap service.
 ```
 systemctl restart fcgiwrap
 systemctl restart nginx
 ```
-9.  Test it by stopping the odoo service manually.
+7.  Test it by stopping the odoo service manually.
 ```
 systemctl stop odoo
 ```
-10. The bash script will create a directory with current timestamp as the name under /var/log/odoo and put all the generated logs under it.
+8. The bash script will create a directory with current timestamp as the name under /var/log/odoo and put all the generated logs under it.
 
 
 
