@@ -24,7 +24,7 @@ else
     fi
     echo "<script>console.log('Issue with Odoo service. Trying to recover')</script>"
     # Create the lock file
-    mkdir $logdir
+    mkdir -p $logdir
     touch "$LOCK_FILE"
     touch "$TIME_FILE"
     date +%s > "$TIME_FILE"
