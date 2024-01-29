@@ -15,7 +15,7 @@ Here's what happens:
 - System Diagnostics (Optional): You can choose to customize the script to gather pre-restart information like CPU, memory, and I/O usage. This data can provide valuable insights into the cause of the issue.
 - Service Restart: The script automatically restarts the Odoo service and potentially PostgreSQL as well (depending on your customization). This prompt action helps minimize downtime and restore functionality.
 
-## Installation.
+## Installation
 
 1. Install NGINX.
    
