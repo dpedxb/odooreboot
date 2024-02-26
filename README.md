@@ -50,7 +50,7 @@ location /502.html {
 ```
 chmod +x -v odoo_check.sh
 ```
-5. Change the FCGI Wrap ```User``` and ```Group``` to ```root``` by editing file ``` /lib/systemd/system/fcgiwrap.service ```. This is required to restart the service. Would you like me to explain alternative solutions?
+5. Change the FCGI Wrap ```User``` and ```Group``` to ```root``` by editing file ``` /lib/systemd/system/fcgiwrap.service ```. This is required to restart the service.
 Do a ```systemctl daemon-reload``` to enable the service again.
 
 6. Restart NGINX and FCGI Wrap service.
